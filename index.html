@@ -1,52 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Delivery Location</title>
+  <title>UK Delivery Network - Delivery Location</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px 20px;
-      background: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #0b1f3a, #163d6b);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      color: #333;
     }
-    .box {
+
+    .card {
       background: white;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 420px;
+      padding: 40px 30px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
     }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #0b1f3a;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #0b1f3a;
+      margin-bottom: 15px;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #555;
+    }
+
     button {
-      background: #007bff;
+      background: #c9a227;
       color: white;
       border: none;
-      padding: 15px 25px;
-      border-radius: 8px;
-      font-size: 16px;
+      padding: 16px 30px;
+      border-radius: 50px;
+      font-size: 17px;
+      font-weight: bold;
       cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
     }
+
     button:hover {
-      background: #0056b3;
+      background: #b08b1e;
+    }
+
+    #status {
+      margin-top: 20px;
+      color: #0b1f3a;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #888;
     }
   </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>[YOUR BUSINESS NAME]</h2>
+<div class="card">
 
-  <h3>Help us find your delivery</h3>
+  <div class="logo">
+    UK Delivery Network
+  </div>
+
+  <div class="tagline">
+    Fast • Reliable • Professional Delivery
+  </div>
+
+  <h2>Help us find your delivery</h2>
 
   <p>
-    Please tap the button below to share your current location.
-    Your phone will ask for permission first.
+    To ensure your delivery arrives smoothly, please share your current location with our driver.
   </p>
 
   <p>
-    Your location will only be used to help complete your delivery.
+    Your device will ask for your permission first. Your location is only used to complete today's delivery.
   </p>
 
   <button onclick="getLocation()">
@@ -54,32 +107,48 @@
   </button>
 
   <p id="status"></p>
+
+  <div class="footer">
+    UK Delivery Network © 2026
+  </div>
+
 </div>
 
 <script>
 function getLocation() {
+
   const status = document.getElementById("status");
 
   if (navigator.geolocation) {
-    status.innerHTML = "Requesting permission...";
+
+    status.innerHTML = "Requesting location permission...";
 
     navigator.geolocation.getCurrentPosition(
+
       function(position) {
+
         status.innerHTML =
-          "Thank you. Location received.";
-        
+        "✓ Location received. Thank you.";
+
         console.log("Latitude:", position.coords.latitude);
         console.log("Longitude:", position.coords.longitude);
+
       },
+
       function() {
+
         status.innerHTML =
-          "Location was not shared.";
+        "Location was not shared.";
+
       }
+
     );
 
   } else {
+
     status.innerHTML =
-      "Location sharing is not supported on this device.";
+    "Location sharing is not supported on this device.";
+
   }
 }
 </script>
