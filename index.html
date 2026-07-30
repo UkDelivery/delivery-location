@@ -26,6 +26,12 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.25);
     }
 
+    .logo img {
+      width: 150px;
+      max-width: 80%;
+      margin-bottom: 15px;
+    }
+
     .logo {
       font-size: 28px;
       font-weight: bold;
@@ -78,24 +84,16 @@
       color: #888;
     }
   </style>
-  .logo img {
-  width: 150px;
-  max-width: 80%;
-  margin-bottom: 15px;
-}
+
 </head>
 
 <body>
 
 <div class="card">
-   UK Delivery Network 
-   </div>
 
   <div class="logo">
-     <img src="logo.png" alt="UK Delivery Network Logo">
-</div>
-    
-   
+    <img src="logo.png" alt="UK Delivery Network Logo">
+    <div>UK Delivery Network</div>
   </div>
 
   <div class="tagline">
@@ -109,7 +107,7 @@
   </p>
 
   <p>
-    Your device will ask for your permission. This location is only used to complete this delivery.
+    Your device will ask for your permission. Your location is only used to complete this delivery.
   </p>
 
   <button onclick="getLocation()">
@@ -124,6 +122,7 @@
 
 </div>
 
+
 <script>
 function getLocation() {
 
@@ -137,8 +136,7 @@ function getLocation() {
 
       function(position) {
 
-        status.innerHTML =
-        "✓ Location received. Thank you.";
+        status.innerHTML = "✓ Location received. Thank you.";
 
         console.log("Latitude:", position.coords.latitude);
         console.log("Longitude:", position.coords.longitude);
@@ -147,8 +145,7 @@ function getLocation() {
 
       function() {
 
-        status.innerHTML =
-        "Location was not shared.";
+        status.innerHTML = "Location was not shared.";
 
       }
 
@@ -156,8 +153,7 @@ function getLocation() {
 
   } else {
 
-    status.innerHTML =
-    "Location sharing is not supported on this device.";
+    status.innerHTML = "Location sharing is not supported on this device.";
 
   }
 }
