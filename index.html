@@ -4,17 +4,13 @@ function getLocation() {
 
 const status = document.getElementById("status");
 
-
 if (navigator.geolocation) {
 
-
 status.innerHTML = "Requesting location permission...";
-
 
 navigator.geolocation.getCurrentPosition(
 
 function(position) {
-
 
 let data = {
 
@@ -25,37 +21,24 @@ longitude: position.coords.longitude
 };
 
 
-fetch("https://script.google.com/macros/s/AKfycbyx-UkijEdLTDjxaQfRE3om3kXCH9UjoT91T0_6SAcjtuLB0b7XK4ZCNl9k7zXrZ6YvxQ/exec",
+fetch("YOUR_APPS_SCRIPT_WEB_APP_URL",
 {
 
 method: "POST",
-
-headers: {
-
-"Content-Type": "application/json"
-
-},
 
 body: JSON.stringify(data)
 
 })
 
 
-.then(response => response.text())
-
-
-.then(result => {
-
-console.log(result);
+.then(() => {
 
 status.innerHTML = "✓ Location received. Thank you.";
 
 })
 
 
-.catch(error => {
-
-console.log(error);
+.catch(() => {
 
 status.innerHTML = "Unable to send location.";
 
@@ -64,31 +47,22 @@ status.innerHTML = "Unable to send location.";
 
 },
 
-
-function(error) {
-
+function() {
 
 status.innerHTML = "Location was not shared.";
 
-
 }
 
-
 );
-
 
 }
 
 else {
 
-
 status.innerHTML = "Location sharing is not supported on this device.";
 
-
 }
 
-
 }
-
 
 </script>
